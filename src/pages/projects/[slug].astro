@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).filter((project) => !project.data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<ContentLayout
+  title={project.data.title}
+  description={project.data.description}
+  tags={project.data.tech}
+  eyebrow="Project"
+>
+  <img class="content-cover" src={project.data.cover} alt={`${project.data.title} 專案封面`} />
+  <div class="link-row">
+    {project.data.repo && <a class="button secondary" href={project.data.repo} target="_blank" rel="noreferrer">查看程式碼</a>}
+    {project.data.demo && <a class="button primary" href={project.data.demo} target="_blank" rel="noreferrer">查看展示</a>}
+  </div>
+  <Content />
+</ContentLayout>

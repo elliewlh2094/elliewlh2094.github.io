@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../../components/ProjectCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('projects'))
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="專案" description="elliewlh2094 的程式專案、工作成果與研究紀錄。">
+  <section class="page-heading">
+    <p class="eyebrow">Projects</p>
+    <h1>專案展示</h1>
+    <p>每個專案都是一個 Markdown 檔案，可放入封面圖、摘要、技術標籤、程式碼連結與展示連結。</p>
+  </section>
+  <section class="section">
+    <div class="project-grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+</BaseLayout>

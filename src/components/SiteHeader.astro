@@ -1,0 +1,18 @@
+---
+const navItems = [
+  { href: '/', label: '首頁' },
+  { href: '/projects/', label: '專案' },
+  { href: '/blog/', label: '文章' },
+  { href: '/about/', label: '關於' }
+];
+---
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label="回到首頁">
+    <span class="brand-mark">EW</span>
+    <span>elliewlh2094</span>
+  </a>
+  <nav class="site-nav" aria-label="主要導覽">
+    {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+</header>

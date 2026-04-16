@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleCard from '../components/ArticleCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('projects'))
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+const featuredProjects = projects.filter((project) => project.data.featured).slice(0, 3);
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">Personal Brand Portfolio</p>
+      <h1>用清楚的專案紀錄，呈現可被理解的工作能力。</h1>
+      <p>
+        這裡是 elliewlh2094 的個人品牌網站第一版。之後可以用 Markdown 更新專案、文章與工作紀錄，逐步累積完整的專業形象。
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href="/projects/">查看專案</a>
+        <a class="button secondary" href="/blog/">閱讀文章</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <p class="eyebrow">Featured Projects</p>
+      <h2>精選專案</h2>
+      <p>先用佔位內容建立展示格式，之後替換為實際程式專案、研究紀錄或工作成果。</p>
+    </div>
+    <div class="project-grid">
+      {featuredProjects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <section class="section split-section">
+    <div>
+      <p class="eyebrow">Working Notes</p>
+      <h2>最新文章</h2>
+      <p>
+        部落格用來整理技術判斷、專案復盤與工作方法。每篇文章都是一個 Markdown 檔案，可直接新增、修改與排序。
+      </p>
+      <a class="text-link" href="/blog/">前往文章列表</a>
+    </div>
+    <div class="article-stack">
+      {posts.map((post) => <ArticleCard post={post} />)}
+    </div>
+  </section>
+
+  <section class="section contact-band">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2>讓網站成為他人認識你的入口</h2>
+      <p>先建立穩定架構，再逐步補上正式姓名、履歷、代表作品與聯絡資訊。</p>
+    </div>
+    <a class="button primary" href="mailto:hello@example.com">聯絡我</a>
+  </section>
+</BaseLayout>

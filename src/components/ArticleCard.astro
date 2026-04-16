@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import TagList from './TagList.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const formattedDate = post.data.pubDate.toLocaleDateString('zh-TW', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<article class="article-card">
+  <p class="article-date">{formattedDate}</p>
+  <h3><a href={`/blog/${post.id}/`}>{post.data.title}</a></h3>
+  <p>{post.data.description}</p>
+  <TagList tags={post.data.tags} />
+</article>

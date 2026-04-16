@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import TagList from './TagList.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project-card">
+  <a class="project-cover-link" href={`/projects/${project.id}/`} aria-label={`閱讀專案：${project.data.title}`}>
+    <img src={project.data.cover} alt={`${project.data.title} 專案封面`} loading="lazy" />
+  </a>
+  <div class="project-card-body">
+    <p class="eyebrow">Project</p>
+    <h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3>
+    <p>{project.data.description}</p>
+    <TagList tags={project.data.tech} />
+  </div>
+</article>

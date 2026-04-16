@@ -1,0 +1,38 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'elliewlh2094 | 個人品牌網站',
+  description = '用專案、文章與工作紀錄呈現專業能力的個人品牌網站。'
+} = Astro.props;
+const pageTitle = title.includes('elliewlh2094') ? title : `${title} | elliewlh2094`;
+---
+
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:site_name" content="elliewlh2094" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

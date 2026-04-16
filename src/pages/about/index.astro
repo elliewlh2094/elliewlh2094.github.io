@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="關於" description="關於 elliewlh2094 的工作方式、專業方向與網站內容規劃。">
+  <section class="page-heading">
+    <p class="eyebrow">About</p>
+    <h1>關於 elliewlh2094</h1>
+    <p>這個頁面先放置可替換的個人品牌敘述，之後可以補上正式姓名、職稱、背景與工作成果。</p>
+  </section>
+
+  <section class="section narrative">
+    <div>
+      <h2>工作定位</h2>
+      <p>
+        我希望透過這個網站，讓合作對象、招募者與技術社群成員快速理解我的工作方向、專案經驗與思考方式。
+      </p>
+      <p>
+        第一版內容以結構為主，保留足夠彈性，之後可以逐步替換成真實案例、成果數據與完整履歷。
+      </p>
+    </div>
+    <div>
+      <h2>內容策略</h2>
+      <p>
+        專案頁負責展示成果，文章頁負責整理判斷過程，首頁負責讓初次造訪者快速掌握你能提供的價值。
+      </p>
+      <p>
+        所有文章與專案都使用 Markdown 維護，網站版面則由 Astro 元件控制，讓內容更新與 UI 調整維持清楚分工。
+      </p>
+    </div>
+  </section>
+
+  <section class="section values-grid">
+    <article>
+      <h3>清楚表達</h3>
+      <p>用具體背景、行動與成果描述專案，讓讀者快速理解重點。</p>
+    </article>
+    <article>
+      <h3>持續整理</h3>
+      <p>用文章保存技術選擇、問題分析與專案復盤，累積可回溯的工作紀錄。</p>
+    </article>
+    <article>
+      <h3>可維護架構</h3>
+      <p>將內容、頁面、元件與樣式分離，降低後續修改的互相影響。</p>
+    </article>
+  </section>
+</BaseLayout>
