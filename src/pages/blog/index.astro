@@ -8,11 +8,11 @@ const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout title="文章" description="elliewlh2094 的技術文章、專案復盤與工作筆記。">
+<BaseLayout title="文章" description="Ellie Huang 的 AI 工具實作、機器人視覺、遊戲與手作筆記。">
   <section class="page-heading">
     <p class="eyebrow">Blog</p>
-    <h1>文章與工作筆記</h1>
-    <p>這裡整理技術判斷、專案復盤與工作方法。新增文章時，只需要在內容資料夾放入 Markdown 檔案。</p>
+    <h1>探索筆記</h1>
+    <p>文章會收集 AI 工具實作、機器人視覺文獻觀察、遊戲心得與手作紀錄。內容可以慢慢補圖、補參考資料與補反思。</p>
   </section>
   <section class="section">
     <div class="article-grid">

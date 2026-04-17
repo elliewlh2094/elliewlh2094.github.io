@@ -9,10 +9,11 @@ interface Props {
 }
 
 const {
-  title = 'elliewlh2094 | 個人品牌網站',
-  description = '用專案、文章與工作紀錄呈現專業能力的個人品牌網站。'
+  title = "Ellie's Robot Notebook",
+  description = '這是 Ellie Huang 的機器人探索筆記，從研究到副專案，再到 AI 與生活心得。'
 } = Astro.props;
-const pageTitle = title.includes('elliewlh2094') ? title : `${title} | elliewlh2094`;
+const siteName = "Ellie's Robot Notebook";
+const pageTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 ---
 
 <!doctype html>
@@ -25,7 +26,7 @@ const pageTitle = title.includes('elliewlh2094') ? title : `${title} | elliewlh2
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
-    <meta property="og:site_name" content="elliewlh2094" />
+    <meta property="og:site_name" content={siteName} />
     <title>{pageTitle}</title>
   </head>
   <body>

@@ -1,6 +1,6 @@
-# elliewlh2094 個人品牌網站
+# Ellie's Robot Notebook
 
-這是使用 Astro 建立的個人品牌網站第一版。網站內容以 Markdown 維護，適合逐步累積個人介紹、程式專案與部落格文章。
+這是使用 Astro 建立的機器人探索筆記網站。網站內容以 Markdown 維護，適合逐步累積機器人研究、副專案、AI 工具實作、遊戲心得與手作紀錄。
 
 ## 本機開發
 
@@ -36,7 +36,9 @@ src/content/blog/my-note.md
 title: "文章標題"
 description: "文章摘要，會顯示在列表與社群預覽中。"
 pubDate: 2026-04-16
+category: "AI 工具實作"
 tags: ["標籤一", "標籤二"]
+featured: true
 draft: false
 ---
 
@@ -60,6 +62,12 @@ src/content/projects/my-project.md
 title: "專案名稱"
 description: "專案摘要，會顯示在專案列表。"
 cover: "/images/projects/my-project.png"
+category: "機器人研究"
+role: "研究與系統整合"
+period: "2026"
+highlights:
+  - "技術重點一"
+  - "技術重點二"
 tech: ["Astro", "Markdown"]
 repo: "https://github.com/elliewlh2094/example"
 demo: "https://example.com"
@@ -73,7 +81,11 @@ draft: false
 
 欄位說明：
 
-- `cover`：專案封面圖，建議放在 `public/images/projects`。
+- `cover`：專案封面圖，可省略；建議放在 `public/images/projects`。
+- `category`：專案分類，例如機器人研究或開源工具。
+- `role`：你在專案中的角色。
+- `period`：專案時間或狀態。
+- `highlights`：專案重點，建議 3 到 5 項。
 - `tech`：技術標籤。
 - `repo`：程式碼連結，可省略。
 - `demo`：展示連結，可省略。

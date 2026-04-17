@@ -1,17 +1,21 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import TagList from '../components/TagList.astro';
 
 interface Props {
   title: string;
   description: string;
   date?: Date;
-  tags?: string[];
+  updatedDate?: Date;
   eyebrow?: string;
 }
 
-const { title, description, date, tags = [], eyebrow = 'Article' } = Astro.props;
+const { title, description, date, updatedDate, eyebrow = 'Article' } = Astro.props;
 const formattedDate = date?.toLocaleDateString('zh-TW', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+const formattedUpdatedDate = updatedDate?.toLocaleDateString('zh-TW', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
@@ -24,8 +28,10 @@ const formattedDate = date?.toLocaleDateString('zh-TW', {
       <p class="eyebrow">{eyebrow}</p>
       <h1>{title}</h1>
       <p>{description}</p>
-      {formattedDate && <time datetime={date?.toISOString()}>{formattedDate}</time>}
-      <TagList tags={tags} />
+      <div class="content-meta">
+        {formattedDate && <time datetime={date?.toISOString()}>{formattedDate}</time>}
+        {formattedUpdatedDate && <span>更新：{formattedUpdatedDate}</span>}
+      </div>
     </header>
     <div class="prose">
       <slot />

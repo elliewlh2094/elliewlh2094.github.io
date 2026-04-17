@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import TagList from './TagList.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -11,12 +10,37 @@ const { project } = Astro.props;
 
 <article class="project-card">
   <a class="project-cover-link" href={`/projects/${project.id}/`} aria-label={`閱讀專案：${project.data.title}`}>
-    <img src={project.data.cover} alt={`${project.data.title} 專案封面`} loading="lazy" />
+    {
+      project.data.cover ? (
+        <img src={project.data.cover} alt={`${project.data.title} 專案封面`} loading="lazy" />
+      ) : (
+        <span class="lab-cover" aria-hidden="true">
+          <strong>{project.data.title}</strong>
+        </span>
+      )
+    }
   </a>
   <div class="project-card-body">
-    <p class="eyebrow">Project</p>
     <h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3>
     <p>{project.data.description}</p>
-    <TagList tags={project.data.tech} />
+    <dl class="meta-list">
+      <div>
+        <dt>角色</dt>
+        <dd>{project.data.role}</dd>
+      </div>
+      <div>
+        <dt>時間</dt>
+        <dd>{project.data.period}</dd>
+      </div>
+    </dl>
+    {
+      project.data.highlights.length > 0 && (
+        <ul class="highlight-list">
+          {project.data.highlights.slice(0, 3).map((highlight) => (
+            <li>{highlight}</li>
+          ))}
+        </ul>
+      )
+    }
   </div>
 </article>

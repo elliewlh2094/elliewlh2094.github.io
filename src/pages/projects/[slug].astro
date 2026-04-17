@@ -17,10 +17,29 @@ const { Content } = await render(project);
 <ContentLayout
   title={project.data.title}
   description={project.data.description}
-  tags={project.data.tech}
-  eyebrow="Project"
+  eyebrow="Project Note"
 >
-  <img class="content-cover" src={project.data.cover} alt={`${project.data.title} 專案封面`} />
+  {
+    project.data.cover && (
+      <img class="content-cover" src={project.data.cover} alt={`${project.data.title} 專案封面`} />
+    )
+  }
+  <section class="project-summary" aria-label="專案摘要">
+    <div>
+      <span>角色</span>
+      <strong>{project.data.role}</strong>
+    </div>
+    <div>
+      <span>時間</span>
+      <strong>{project.data.period}</strong>
+    </div>
+    <div>
+      <span>重點</span>
+      <ul>
+        {project.data.highlights.map((highlight) => <li>{highlight}</li>)}
+      </ul>
+    </div>
+  </section>
   <div class="link-row">
     {project.data.repo && <a class="button secondary" href={project.data.repo} target="_blank" rel="noreferrer">查看程式碼</a>}
     {project.data.demo && <a class="button primary" href={project.data.demo} target="_blank" rel="noreferrer">查看展示</a>}

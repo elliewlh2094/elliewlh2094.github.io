@@ -11,14 +11,13 @@ const requiredFiles = [
   'dist/index.html',
   'dist/about/index.html',
   'dist/projects/index.html',
-  'dist/projects/personal-brand-site/index.html',
-  'dist/projects/project-gallery/index.html',
-  'dist/projects/work-notes-hub/index.html',
+  'dist/projects/drone-swarm-visual-formation/index.html',
+  'dist/projects/behavior-tree-visual-editor/index.html',
   'dist/blog/index.html',
-  'dist/blog/markdown-content-workflow/index.html',
-  'dist/blog/project-writing-template/index.html',
-  'dist/images/hero-workspace.png',
-  'dist/images/projects/personal-brand-site.png',
+  'dist/blog/ai-harness-visual-tool/index.html',
+  'dist/blog/robot-vision-vlm-notes/index.html',
+  'dist/blog/pokemon-pokopia-town-notes/index.html',
+  'dist/blog/air-dry-clay-game-character/index.html',
   'dist/images/projects/project-gallery.png',
   'dist/images/projects/work-notes-hub.png'
 ];
@@ -32,9 +31,10 @@ const previewPaths = [
   '/',
   '/about/',
   '/projects/',
-  '/projects/personal-brand-site/',
+  '/projects/drone-swarm-visual-formation/',
+  '/projects/behavior-tree-visual-editor/',
   '/blog/',
-  '/blog/markdown-content-workflow/'
+  '/blog/ai-harness-visual-tool/'
 ];
 
 function assertStaticOutput() {
