@@ -4,8 +4,8 @@ description: "以照片為主，記錄我用免燒黏土製作遊戲角色模型
 pubDate: 2026-04-14
 category: "手作紀錄"
 tags: ["免燒黏土", "遊戲角色", "手作"]
-featured: true
-draft: false
+featured: false
+draft: true
 ---
 
 這篇文章會以照片作為主要內容，搭配簡短文字記錄免燒黏土模型的製作過程。重點會放在材料、造型取捨、上色細節與完成後的觀察。

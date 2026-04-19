@@ -8,9 +8,9 @@ summary:
   - "掌握目前工具支援的合法性檢查、匯入與匯出方向。"
   - "知道後續筆記會整理資料結構設計、介面取捨與 AI Harness 使用經驗。"
 tech: ["Behavior Tree", "Web Application", "Visualization", "Open Source"]
-featured: true
+featured: false
 order: 2
-draft: false
+draft: true
 ---
 
 這個工具用來快速建立行為樹（Behavior Tree）的結構，讓機器人任務邏輯可以用更直覺的方式被檢查、討論與修改。

@@ -5,8 +5,8 @@ pubDate: 2026-04-17
 category: "AI 工具實作"
 tags: ["AI Harness", "視覺化工具", "行為樹"]
 cover: "/images/blogs/test_b_01.jpg"
-featured: true
-draft: false
+featured: false
+draft: true
 ---
 
 這篇文章會整理我如何從零開始製作一套視覺化工具，並觀察 AI Harness 在探索需求、建立雛形、修正互動細節與整理文件時能提供哪些幫助。

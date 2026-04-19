@@ -5,8 +5,8 @@ pubDate: 2026-04-15
 category: "遊戲筆記"
 tags: ["Pokemon Pokopia", "遊戲心得", "城鎮建造"]
 cover: "/images/blogs/test_b_02.jpg"
-featured: true
-draft: false
+featured: false
+draft: true
 ---
 
 這篇文章會放入遊戲截圖與建造心得，記錄我在 Pokemon Pokopia 中如何安排城鎮、設計動線，以及哪些地方最能反映自己的遊戲偏好。

@@ -8,9 +8,9 @@ summary:
   - "掌握目前專案關注的定位、任務控制與多機協作問題。"
   - "知道後續筆記會補上系統架構、實驗限制與可公開成果。"
 tech: ["Robotics", "Computer Vision", "Multi-Agent System", "UAV"]
-featured: true
+featured: false
 order: 1
-draft: false
+draft: true
 ---
 
 這個專案聚焦在戶外環境中的無人機群自主航行。當 GNSS 訊號不穩定或不可用時，系統需要依靠視覺資訊估計相對位置，並讓多台無人機維持隊形完成長距離航行任務。

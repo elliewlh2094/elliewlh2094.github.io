@@ -11,12 +11,12 @@ const requiredFiles = [
   'dist/index.html',
   'dist/about/index.html',
   'dist/projects/index.html',
-  'dist/projects/drone-swarm-visual-formation/index.html',
-  'dist/projects/behavior-tree-visual-editor/index.html',
+  'dist/projects/uav-swarm-formation-system/index.html',
+  'dist/projects/behavior-tree-visual-tool-editor/index.html',
   'dist/blog/index.html',
-  'dist/blog/ai-harness-visual-tool/index.html',
-  'dist/blog/pokemon-pokopia-town-notes/index.html',
-  'dist/blog/air-dry-clay-game-character/index.html',
+  'dist/blog/bt-visual-tool-vibe-code/index.html',
+  'dist/blog/pokopia-town-notes-01/index.html',
+  'dist/blog/clay-art-01/index.html',
   'dist/images/projects/project-gallery.png',
   'dist/images/projects/work-notes-hub.png'
 ];
@@ -31,10 +31,10 @@ const previewPaths = [
   '/',
   '/about/',
   '/projects/',
-  '/projects/drone-swarm-visual-formation/',
-  '/projects/behavior-tree-visual-editor/',
+  '/projects/uav-swarm-formation-system/',
+  '/projects/behavior-tree-visual-tool-editor/',
   '/blog/',
-  '/blog/ai-harness-visual-tool/'
+  '/blog/bt-visual-tool-vibe-code/'
 ];
 
 function assertStaticOutput() {

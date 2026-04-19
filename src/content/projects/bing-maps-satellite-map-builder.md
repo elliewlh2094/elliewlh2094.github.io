@@ -8,9 +8,9 @@ summary:
   - "掌握這個工具和無人機群自主編隊飛行系統之間的研究流程關係。"
   - "知道後續需要補上的座標轉換、影像擷取與授權限制。"
 tech: ["Bing Maps", "Satellite Imagery", "Geospatial Data", "UAV Simulation"]
-featured: true
+featured: false
 order: 3
-draft: false
+draft: true
 ---
 
 這個專案是在製作「無人機群自主編隊飛行系統」的過程中衍生出的研究支援工具。為了讓無人機模擬能使用更接近實際場域的地圖資料，我整理出一套流程，從 Bing Maps 指定衛星影像範圍，建立可用於模擬環境的地圖素材。
