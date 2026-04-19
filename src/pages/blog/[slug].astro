@@ -19,7 +19,12 @@ const { Content } = await render(post);
   description={post.data.description}
   date={post.data.pubDate}
   updatedDate={post.data.updatedDate}
-  eyebrow="Notebook"
+  eyebrow="Blog Post"
 >
+  {
+    post.data.cover && (
+      <img class="content-cover" src={post.data.cover} alt={`${post.data.title} 文章封面`} />
+    )
+  }
   <Content />
 </ContentLayout>

@@ -38,6 +38,7 @@ description: "文章摘要，會顯示在列表與社群預覽中。"
 pubDate: 2026-04-16
 category: "AI 工具實作"
 tags: ["標籤一", "標籤二"]
+cover: "/images/blog/my-note.png"
 featured: true
 draft: false
 ---
@@ -46,6 +47,8 @@ draft: false
 ```
 
 設定 `draft: true` 時，文章不會出現在正式網站，也不會產生文章頁。
+
+文章的 `cover` 可省略。省略時，文章卡片與文章頁會顯示格線占位圖面；使用圖片時，建議放在 `public/images`，路徑以 `/images/...` 開頭。
 
 ## 新增專案
 
@@ -63,11 +66,9 @@ title: "專案名稱"
 description: "專案摘要，會顯示在專案列表。"
 cover: "/images/projects/my-project.png"
 category: "機器人研究"
-role: "研究與系統整合"
-period: "2026"
-highlights:
-  - "技術重點一"
-  - "技術重點二"
+summary:
+  - "讀者看完這個專案後會理解的重點一。"
+  - "讀者看完這個專案後會記得的重點二。"
 tech: ["Astro", "Markdown"]
 repo: "https://github.com/elliewlh2094/example"
 demo: "https://example.com"
@@ -83,9 +84,7 @@ draft: false
 
 - `cover`：專案封面圖，可省略；建議放在 `public/images/projects`。
 - `category`：專案分類，例如機器人研究或開源工具。
-- `role`：你在專案中的角色。
-- `period`：專案時間或狀態。
-- `highlights`：專案重點，建議 3 到 5 項。
+- `summary`：專案重點摘要，必須 1 到 3 句，用來說明讀者看完後會了解、學到或記得什麼。
 - `tech`：技術標籤。
 - `repo`：程式碼連結，可省略。
 - `demo`：展示連結，可省略。
@@ -111,7 +110,7 @@ public/images/projects/my-project.png
 ## 專案結構
 
 ```text
-src/content/blog/        部落格文章
+src/content/blog/        部落格
 src/content/projects/    專案內容
 src/components/          共用 UI 元件
 src/layouts/             頁面版型

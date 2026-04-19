@@ -17,10 +17,10 @@ const posts = (await getCollection('blog'))
 <BaseLayout title="Ellie's Robot Notebook">
   <section class="hero">
     <div class="hero-content">
-      <p class="eyebrow">Robot Lab Notes</p>
+      <p class="eyebrow">Robot Notes</p>
       <h1>Ellie's Robot Notebook</h1>
       <p>
-        這是 Ellie Huang 的機器人探索筆記，從我的研究到副專案，再到 AI 與生活心得。
+        這是我的機器人探索筆記，從研究到 side project 再到一點點生活紀錄。
       </p>
       <div class="hero-actions">
         <a class="button primary" href="/projects/">查看專案</a>
@@ -31,9 +31,11 @@ const posts = (await getCollection('blog'))
 
   <section class="section">
     <div class="section-header">
-      <p class="eyebrow">Featured Experiments</p>
-      <h2>研究與副專案</h2>
-      <p>先放兩個最能代表目前方向的專案：一個是機器人系統研究，一個是開源視覺化工具。</p>
+      <p class="eyebrow">Pinned Projects</p>
+      <h2>置頂專案</h2>
+      <p>
+        這裡是我近期做的專案。
+      </p>
     </div>
     <div class="project-grid home-card-grid">
       {featuredProjects.map((project) => <ProjectCard project={project} />)}
@@ -45,10 +47,10 @@ const posts = (await getCollection('blog'))
 
   <section class="section">
     <div class="section-header">
-      <p class="eyebrow">Notebook Index</p>
-      <h2>文章與筆記</h2>
+      <p class="eyebrow">Blog</p>
+      <h2>部落格</h2>
       <p>
-        文章會混合研究筆記、工具製作、遊戲心得與手作紀錄。每篇文章都是一個 Markdown 檔案，方便持續補圖、補實驗與補想法。
+        這裡會放一些比較隨意寫寫的文章。
       </p>
     </div>
     <div class="article-mini-grid home-card-grid">

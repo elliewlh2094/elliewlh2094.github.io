@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import { formatReadingTime } from '../../utils/readingTime';
 
 export async function getStaticPaths() {
   const projects = (await getCollection('projects')).filter((project) => !project.data.draft);
@@ -12,6 +13,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+const readingTime = formatReadingTime(project.body);
 ---
 
 <ContentLayout
@@ -26,17 +28,13 @@ const { Content } = await render(project);
   }
   <section class="project-summary" aria-label="專案摘要">
     <div>
-      <span>角色</span>
-      <strong>{project.data.role}</strong>
+      <span>閱讀時間</span>
+      <strong>{readingTime}</strong>
     </div>
     <div>
-      <span>時間</span>
-      <strong>{project.data.period}</strong>
-    </div>
-    <div>
-      <span>重點</span>
-      <ul>
-        {project.data.highlights.map((highlight) => <li>{highlight}</li>)}
+      <span>重點摘要</span>
+      <ul class="summary-copy">
+        {project.data.summary.map((summary) => <li>{summary}</li>)}
       </ul>
     </div>
   </section>

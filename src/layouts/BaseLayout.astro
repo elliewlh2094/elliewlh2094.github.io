@@ -6,11 +6,13 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
   title = "Ellie's Robot Notebook",
-  description = '這是 Ellie Huang 的機器人探索筆記，從研究到副專案，再到 AI 與生活心得。'
+  description = '這是 Ellie 的機器人探索筆記，從研究到副專案，再到 AI 與生活心得。',
+  noindex = false
 } = Astro.props;
 const siteName = "Ellie's Robot Notebook";
 const pageTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
@@ -22,6 +24,7 @@ const pageTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />

@@ -4,6 +4,7 @@ description: "記錄我用 AI Harness 協助建立行為樹視覺化工具的探
 pubDate: 2026-04-17
 category: "AI 工具實作"
 tags: ["AI Harness", "視覺化工具", "行為樹"]
+cover: "/images/blogs/test_b_01.jpg"
 featured: true
 draft: false
 ---

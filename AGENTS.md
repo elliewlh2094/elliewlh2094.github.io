@@ -17,7 +17,7 @@
 
 ## 主要目錄
 
-- `src/content/blog`：部落格文章。
+- `src/content/blog`：部落格。
 - `src/content/projects`：專案資料。
 - `src/components`：共用介面元件。
 - `src/layouts`：頁面版型。
@@ -25,6 +25,11 @@
 - `src/styles/global.css`：全站樣式。
 - `public/images`：公開圖片資源。
 - `scripts/verify-site.mjs`：建置輸出與預覽頁面檢查腳本。
+
+## 相關維護文件
+
+- `docs/project-execution-plan.md`：專案執行計畫。需要確認目前完成項目、待辦項目、下一步順序、網站方向、內容策略、專案文章規劃、第一版範圍、暫不納入項目與既有假設時，先查看這份文件。
+- `docs/technical-troubleshooting-guide.md`：技術疑難排解指南。遇到 `npm run build` 或 `npm run verify` 失敗、Astro 內容同步異常、重複識別碼、頁面輸出異常、內容集合欄位錯誤、草稿排除規則異常、封面圖片或格線占位顯示異常、工作樹已有大量未提交修改時，先查看這份文件。
 
 ## 開發指令
 

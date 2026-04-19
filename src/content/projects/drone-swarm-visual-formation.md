@@ -1,16 +1,12 @@
 ---
 title: "無人機群自主編隊飛行系統"
 description: "這個系統可以在 GNSS 受限的戶外環境中，以純視覺定位技術讓多台無人機以穩定的隊形進行長距離航行。"
-cover: "/images/projects/work-notes-hub.png"
+cover: "/images/projects/test_01.jpg"
 category: "機器人研究"
-role: "研究與系統整合"
-period: "研究專案"
-highlights:
-  - "GNSS 受限戶外環境"
-  - "純視覺定位"
-  - "多機協作"
-  - "穩定隊形航行"
-  - "長距離任務"
+summary:
+  - "了解這個研究如何在 GNSS 受限的戶外環境中，以視覺定位支援多台無人機維持隊形。"
+  - "掌握目前專案關注的定位、任務控制與多機協作問題。"
+  - "知道後續筆記會補上系統架構、實驗限制與可公開成果。"
 tech: ["Robotics", "Computer Vision", "Multi-Agent System", "UAV"]
 featured: true
 order: 1

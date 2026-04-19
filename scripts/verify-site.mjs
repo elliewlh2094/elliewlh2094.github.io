@@ -15,7 +15,6 @@ const requiredFiles = [
   'dist/projects/behavior-tree-visual-editor/index.html',
   'dist/blog/index.html',
   'dist/blog/ai-harness-visual-tool/index.html',
-  'dist/blog/robot-vision-vlm-notes/index.html',
   'dist/blog/pokemon-pokopia-town-notes/index.html',
   'dist/blog/air-dry-clay-game-character/index.html',
   'dist/images/projects/project-gallery.png',
@@ -24,6 +23,7 @@ const requiredFiles = [
 
 const forbiddenFiles = [
   'dist/blog/draft-note/index.html',
+  'dist/blog/robot-vision-vlm-notes/index.html',
   'dist/projects/draft-project/index.html'
 ];
 

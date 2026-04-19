@@ -3,10 +3,8 @@ title: "草稿專案範例"
 description: "這個專案設定為草稿，建置後不會出現在正式頁面。"
 cover: "/images/projects/project-gallery.png"
 category: "草稿"
-role: "內容驗證"
-period: "草稿"
-highlights:
-  - "草稿排除驗證"
+summary:
+  - "確認草稿專案不會出現在正式列表，也不會產生正式詳細頁。"
 tech: ["草稿"]
 featured: false
 order: 99

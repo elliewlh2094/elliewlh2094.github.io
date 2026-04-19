@@ -1,11 +1,13 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { formatReadingTime } from '../utils/readingTime';
 
 interface Props {
   project: CollectionEntry<'projects'>;
 }
 
 const { project } = Astro.props;
+const readingTime = formatReadingTime(project.body);
 ---
 
 <article class="project-card">
@@ -25,22 +27,9 @@ const { project } = Astro.props;
     <p>{project.data.description}</p>
     <dl class="meta-list">
       <div>
-        <dt>角色</dt>
-        <dd>{project.data.role}</dd>
-      </div>
-      <div>
-        <dt>時間</dt>
-        <dd>{project.data.period}</dd>
+        <dt>閱讀時間</dt>
+        <dd>{readingTime}</dd>
       </div>
     </dl>
-    {
-      project.data.highlights.length > 0 && (
-        <ul class="highlight-list">
-          {project.data.highlights.slice(0, 3).map((highlight) => (
-            <li>{highlight}</li>
-          ))}
-        </ul>
-      )
-    }
   </div>
 </article>

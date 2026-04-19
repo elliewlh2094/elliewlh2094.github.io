@@ -1,15 +1,12 @@
 ---
 title: "行為樹視覺化工具"
 description: "一個開源網頁應用，可以在工具中快速建立行為樹的結構，支援簡易的合法性檢查以及匯入與匯出功能。"
-cover: "/images/projects/project-gallery.png"
+cover: "/images/projects/test_02.jpg"
 category: "開源工具"
-role: "工具設計與開發"
-period: "副專案"
-highlights:
-  - "視覺化結構編輯"
-  - "合法性檢查"
-  - "匯入與匯出"
-  - "開源網頁應用"
+summary:
+  - "了解這個工具如何用視覺化方式建立行為樹，協助檢查機器人任務邏輯。"
+  - "掌握目前工具支援的合法性檢查、匯入與匯出方向。"
+  - "知道後續筆記會整理資料結構設計、介面取捨與 AI Harness 使用經驗。"
 tech: ["Behavior Tree", "Web Application", "Visualization", "Open Source"]
 featured: true
 order: 2

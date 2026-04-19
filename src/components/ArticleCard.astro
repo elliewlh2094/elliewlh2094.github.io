@@ -19,9 +19,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString('zh-TW', {
       post.data.cover ? (
         <img src={post.data.cover} alt={`${post.data.title} 文章封面`} loading="lazy" />
       ) : (
-        <span class="lab-cover" aria-hidden="true">
-          <strong>{post.data.title}</strong>
-        </span>
+        <span class="article-cover-placeholder" aria-hidden="true"></span>
       )
     }
   </a>

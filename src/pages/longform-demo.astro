@@ -1,0 +1,71 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatReadingTime } from '../utils/readingTime';
+
+const posts = await getCollection('blog');
+const projects = await getCollection('projects');
+
+const blogDemo = posts.find((post) => post.id === 'longform-style-demo');
+const projectDemo = projects.find((project) => project.id === 'longform-style-demo-project');
+
+if (!blogDemo || !projectDemo) {
+  throw new Error('Longform demo content is missing.');
+}
+
+const { Content: BlogContent } = await render(blogDemo);
+const { Content: ProjectContent } = await render(projectDemo);
+const projectReadingTime = formatReadingTime(projectDemo.body);
+---
+
+<BaseLayout
+  title="長篇內容排版展示"
+  description="展示草稿文章與草稿專案在長篇內容下的版面效果。"
+  noindex
+>
+  <article class="content-page">
+    <header class="content-hero">
+      <p class="eyebrow">Longform Demo</p>
+      <h1>長篇內容排版展示</h1>
+      <p>這個頁面用來檢查草稿文章與草稿專案在長篇內容下的閱讀版面，不會加入網站導覽。</p>
+    </header>
+
+    <section class="prose" aria-labelledby="blog-demo-title">
+      <p class="eyebrow">Blog 範例</p>
+      <h2 id="blog-demo-title">{blogDemo.data.title}</h2>
+      <p>{blogDemo.data.description}</p>
+      {
+        blogDemo.data.cover ? (
+          <img class="content-cover" src={blogDemo.data.cover} alt={`${blogDemo.data.title} 文章封面`} />
+        ) : (
+          <div class="content-cover article-cover-placeholder" aria-hidden="true"></div>
+        )
+      }
+      <BlogContent />
+    </section>
+
+    <section class="prose longform-demo-section" aria-labelledby="project-demo-title">
+      <p class="eyebrow">Project 範例</p>
+      <h2 id="project-demo-title">{projectDemo.data.title}</h2>
+      <p>{projectDemo.data.description}</p>
+      {
+        projectDemo.data.cover && (
+          <img class="content-cover" src={projectDemo.data.cover} alt={`${projectDemo.data.title} 專案封面`} />
+        )
+      }
+      <section class="project-summary" aria-label="專案摘要">
+        <div>
+          <span>閱讀時間</span>
+          <strong>{projectReadingTime}</strong>
+        </div>
+        <div>
+          <span>重點摘要</span>
+          <ul class="summary-copy">
+            {projectDemo.data.summary.map((summary) => <li>{summary}</li>)}
+          </ul>
+        </div>
+      </section>
+      <ProjectContent />
+    </section>
+  </article>
+</BaseLayout>

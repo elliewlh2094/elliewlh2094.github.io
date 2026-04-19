@@ -4,8 +4,8 @@ description: "以隨性文獻回顧方式整理機器人視覺技術演進，包
 pubDate: 2026-04-16
 category: "機器人視覺"
 tags: ["機器人視覺", "VLM", "文獻回顧"]
-featured: true
-draft: false
+featured: false
+draft: true
 ---
 
 這篇文章會用比較隨性的方式回顧機器人視覺的技術演進，從傳統整合視覺模型，到近期視覺語言模型（Vision-Language Model, VLM）在機器人任務中的使用想像。

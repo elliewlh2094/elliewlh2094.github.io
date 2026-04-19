@@ -4,6 +4,7 @@ description: "用遊戲截圖與文字心得記錄我在 Pokemon Pokopia 中建�
 pubDate: 2026-04-15
 category: "遊戲筆記"
 tags: ["Pokemon Pokopia", "遊戲心得", "城鎮建造"]
+cover: "/images/blogs/test_b_02.jpg"
 featured: true
 draft: false
 ---
