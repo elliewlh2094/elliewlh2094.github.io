@@ -6,8 +6,8 @@ import { formatReadingTime } from '../utils/readingTime';
 const posts = await getCollection('blog');
 const projects = await getCollection('projects');
 
-const blogDemo = posts.find((post) => post.id === 'longform-style-demo');
-const projectDemo = projects.find((project) => project.id === 'longform-style-demo-project');
+const blogDemo = posts.find((post) => post.id === '00-longform-style-demo');
+const projectDemo = projects.find((project) => project.id === '00-longform-style-demo-project');
 
 if (!blogDemo || !projectDemo) {
   throw new Error('Longform demo content is missing.');

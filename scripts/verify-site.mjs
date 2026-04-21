@@ -1,5 +1,6 @@
 import { execFileSync, spawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import path from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 
 const port = Number(process.env.PREVIEW_PORT ?? 4327);
@@ -7,49 +8,175 @@ const baseUrl = `http://127.0.0.1:${port}`;
 const startupTimeoutMs = 15_000;
 const requestTimeoutMs = 5_000;
 
-const requiredFiles = [
-  'dist/index.html',
-  'dist/about/index.html',
-  'dist/projects/index.html',
-  'dist/projects/uav-swarm-formation-system/index.html',
-  'dist/projects/behavior-tree-visual-tool-editor/index.html',
-  'dist/blog/index.html',
-  'dist/blog/bt-visual-tool-vibe-code/index.html',
-  'dist/blog/pokopia-town-notes-01/index.html',
-  'dist/blog/clay-art-01/index.html',
-  'dist/images/projects/project-gallery.png',
-  'dist/images/projects/work-notes-hub.png'
+const corePages = [
+  { file: 'dist/index.html', previewPath: '/' },
+  { file: 'dist/about/index.html', previewPath: '/about/' },
+  { file: 'dist/projects/index.html', previewPath: '/projects/' },
+  { file: 'dist/blog/index.html', previewPath: '/blog/' }
 ];
 
-const forbiddenFiles = [
-  'dist/blog/draft-note/index.html',
-  'dist/blog/robot-vision-vlm-notes/index.html',
-  'dist/projects/draft-project/index.html'
+const collections = [
+  {
+    name: 'projects',
+    contentDir: path.join('src', 'content', 'projects'),
+    distPrefix: 'projects'
+  },
+  {
+    name: 'blog',
+    contentDir: path.join('src', 'content', 'blog'),
+    distPrefix: 'blog'
+  }
 ];
 
-const previewPaths = [
-  '/',
-  '/about/',
-  '/projects/',
-  '/projects/uav-swarm-formation-system/',
-  '/projects/behavior-tree-visual-tool-editor/',
-  '/blog/',
-  '/blog/bt-visual-tool-vibe-code/'
-];
+function listMarkdownFiles(directory) {
+  const entries = readdirSync(directory, { withFileTypes: true });
+  const files = [];
 
-function assertStaticOutput() {
-  const missing = requiredFiles.filter((file) => !existsSync(file));
-  const leakedDrafts = forbiddenFiles.filter((file) => existsSync(file));
+  for (const entry of entries) {
+    const fullPath = path.join(directory, entry.name);
 
-  if (missing.length > 0) {
-    throw new Error(`Missing expected build output: ${missing.join(', ')}`);
+    if (entry.isDirectory()) {
+      files.push(...listMarkdownFiles(fullPath));
+      continue;
+    }
+
+    if (entry.isFile() && fullPath.endsWith('.md')) {
+      files.push(fullPath);
+    }
   }
 
-  if (leakedDrafts.length > 0) {
-    throw new Error(`Draft output should not exist: ${leakedDrafts.join(', ')}`);
+  return files;
+}
+
+function extractFrontmatter(text) {
+  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  return match?.[1] ?? '';
+}
+
+function parseBooleanField(frontmatter, fieldName, defaultValue = false) {
+  const match = frontmatter.match(new RegExp(`^${fieldName}:\\s*(true|false)\\s*$`, 'm'));
+
+  if (!match) {
+    return defaultValue;
   }
 
-  console.log(`Static output check passed (${requiredFiles.length} files).`);
+  return match[1] === 'true';
+}
+
+function parseStringField(frontmatter, fieldName) {
+  const match = frontmatter.match(
+    new RegExp(`^${fieldName}:\\s*(?:"([^"\\r\\n]+)"|'([^'\\r\\n]+)'|([^#\\r\\n]+))\\s*$`, 'm')
+  );
+
+  if (!match) {
+    return undefined;
+  }
+
+  return (match[1] ?? match[2] ?? match[3] ?? '').trim() || undefined;
+}
+
+function toPosixPath(filePath) {
+  return filePath.split(path.sep).join('/');
+}
+
+function toSlug(baseDir, filePath) {
+  const relativePath = path.relative(baseDir, filePath);
+  return toPosixPath(relativePath).replace(/\.md$/i, '').toLowerCase();
+}
+
+function toDistHtmlPath(prefix, slug) {
+  return path.join('dist', ...prefix.split('/'), ...slug.split('/'), 'index.html');
+}
+
+function toPreviewPath(prefix, slug) {
+  return `/${[prefix, slug].filter(Boolean).join('/')}/`;
+}
+
+function toDistAssetPath(assetPath) {
+  return path.join('dist', ...assetPath.replace(/^\/+/, '').split('/'));
+}
+
+function collectEntries() {
+  return collections.flatMap((collection) => {
+    const files = listMarkdownFiles(collection.contentDir);
+
+    return files.map((filePath) => {
+      const source = readFileSync(filePath, 'utf8');
+      const frontmatter = extractFrontmatter(source);
+      const slug = toSlug(collection.contentDir, filePath);
+      const draft = parseBooleanField(frontmatter, 'draft', false);
+      const cover = parseStringField(frontmatter, 'cover');
+
+      return {
+        collection: collection.name,
+        slug,
+        draft,
+        cover,
+        distFile: toDistHtmlPath(collection.distPrefix, slug),
+        previewPath: toPreviewPath(collection.distPrefix, slug)
+      };
+    });
+  });
+}
+
+function buildVerificationTargets(entries) {
+  const publicEntries = entries.filter((entry) => !entry.draft);
+  const draftEntries = entries.filter((entry) => entry.draft);
+
+  const requiredFiles = [
+    ...corePages.map((page) => page.file),
+    ...publicEntries.map((entry) => entry.distFile)
+  ];
+
+  const requiredAssets = publicEntries
+    .filter((entry) => entry.cover)
+    .map((entry) => toDistAssetPath(entry.cover));
+
+  const forbiddenFiles = draftEntries.map((entry) => entry.distFile);
+  const previewPaths = [
+    ...corePages.map((page) => page.previewPath),
+    ...publicEntries.map((entry) => entry.previewPath)
+  ];
+
+  return {
+    publicEntries,
+    draftEntries,
+    requiredFiles: [...new Set(requiredFiles)],
+    requiredAssets: [...new Set(requiredAssets)],
+    forbiddenFiles: [...new Set(forbiddenFiles)],
+    previewPaths: [...new Set(previewPaths)]
+  };
+}
+
+function assertStaticOutput(targets) {
+  const missingFiles = targets.requiredFiles.filter((file) => !existsSync(file));
+  const missingAssets = targets.requiredAssets.filter((file) => !existsSync(file));
+  const leakedDrafts = targets.forbiddenFiles.filter((file) => existsSync(file));
+
+  if (missingFiles.length > 0 || missingAssets.length > 0 || leakedDrafts.length > 0) {
+    const messages = [];
+
+    if (missingFiles.length > 0) {
+      messages.push(`缺少預期頁面輸出：${missingFiles.join(', ')}`);
+    }
+
+    if (missingAssets.length > 0) {
+      messages.push(`缺少公開內容封面資源：${missingAssets.join(', ')}`);
+    }
+
+    if (leakedDrafts.length > 0) {
+      messages.push(`草稿內容不應輸出：${leakedDrafts.join(', ')}`);
+    }
+
+    throw new Error(messages.join('\n'));
+  }
+
+  const publicProjects = targets.publicEntries.filter((entry) => entry.collection === 'projects').length;
+  const publicPosts = targets.publicEntries.filter((entry) => entry.collection === 'blog').length;
+
+  console.log(
+    `靜態輸出檢查通過：公開專案 ${publicProjects} 篇，公開文章 ${publicPosts} 篇，草稿排除 ${targets.forbiddenFiles.length} 篇，封面資源 ${targets.requiredAssets.length} 個。`
+  );
 }
 
 async function fetchWithTimeout(pathname) {
@@ -101,7 +228,7 @@ function stopProcessTree(processToStop) {
   processToStop.kill('SIGTERM');
 }
 
-async function verifyPreview() {
+async function verifyPreview(previewPaths) {
   const child = spawn(process.execPath, [
     './node_modules/astro/astro.js',
     'preview',
@@ -123,7 +250,7 @@ async function verifyPreview() {
 
     for (const pathname of previewPaths) {
       await fetchWithTimeout(pathname);
-      console.log(`Preview check passed: ${pathname}`);
+      console.log(`預覽檢查通過：${pathname}`);
     }
   } catch (error) {
     console.error(stdout.join(''));
@@ -134,6 +261,9 @@ async function verifyPreview() {
   }
 }
 
-assertStaticOutput();
-await verifyPreview();
-console.log('Site verification passed.');
+const entries = collectEntries();
+const targets = buildVerificationTargets(entries);
+
+assertStaticOutput(targets);
+await verifyPreview(targets.previewPaths);
+console.log('網站驗證通過。');
