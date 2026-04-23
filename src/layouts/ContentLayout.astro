@@ -4,22 +4,12 @@ import BaseLayout from './BaseLayout.astro';
 interface Props {
   title: string;
   description: string;
-  date?: Date;
-  updatedDate?: Date;
+  dateLabel?: string;
+  updatedDateLabel?: string;
   eyebrow?: string;
 }
 
-const { title, description, date, updatedDate, eyebrow = 'Article' } = Astro.props;
-const formattedDate = date?.toLocaleDateString('zh-TW', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
-const formattedUpdatedDate = updatedDate?.toLocaleDateString('zh-TW', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
+const { title, description, dateLabel, updatedDateLabel, eyebrow = 'Article' } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -29,8 +19,8 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('zh-TW', {
       <h1>{title}</h1>
       <p>{description}</p>
       <div class="content-meta">
-        {formattedDate && <time datetime={date?.toISOString()}>{formattedDate}</time>}
-        {formattedUpdatedDate && <span>更新：{formattedUpdatedDate}</span>}
+        {dateLabel && <time>{dateLabel}</time>}
+        {updatedDateLabel && <span>更新：{updatedDateLabel}</span>}
       </div>
     </header>
     <div class="prose">

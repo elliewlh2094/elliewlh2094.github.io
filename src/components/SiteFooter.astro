@@ -1,15 +1,22 @@
 ---
+import {
+  SITE_EMAIL,
+  SITE_GITHUB_URL,
+  SITE_NAME,
+  SITE_TAGLINE
+} from '../lib/site/config';
+
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div>
-    <strong>Ellie's Robot Notebook</strong>
-    <p>Ellie 的機器人探索筆記，收集研究、Side project、AI 與生活製作紀錄。</p>
+    <strong>{SITE_NAME}</strong>
+    <p>{SITE_TAGLINE}</p>
   </div>
   <div class="footer-links">
-    <a href="mailto:lyhuang1325@gmail.com">lyhuang1325@gmail.com</a>
-    <a href="https://github.com/elliewlh2094" target="_blank" rel="noreferrer">GitHub</a>
+    <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>
+    <a href={SITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
   </div>
   <p class="copyright">&copy; {year} Ellie Huang</p>
 </footer>

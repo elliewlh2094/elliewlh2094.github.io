@@ -1,23 +1,18 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { ArticleCardData } from '../lib/content/blog';
 
 interface Props {
-  post: CollectionEntry<'blog'>;
+  post: ArticleCardData;
 }
 
 const { post } = Astro.props;
-const formattedDate = post.data.pubDate.toLocaleDateString('zh-TW', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
 ---
 
 <article class="article-card">
-  <a class="article-cover-link" href={`/blog/${post.id}/`} aria-label={`閱讀文章：${post.data.title}`}>
+  <a class="article-cover-link" href={post.href} aria-label={`閱讀文章：${post.title}`}>
     {
-      post.data.cover ? (
-        <img src={post.data.cover} alt={`${post.data.title} 文章封面`} loading="lazy" />
+      post.cover ? (
+        <img src={post.cover.src} alt={post.cover.alt} loading="lazy" />
       ) : (
         <span class="article-cover-placeholder" aria-hidden="true"></span>
       )
@@ -25,9 +20,9 @@ const formattedDate = post.data.pubDate.toLocaleDateString('zh-TW', {
   </a>
   <div class="article-card-body">
     <div class="article-card-topline">
-      <p class="article-date">{formattedDate}</p>
+      <p class="article-date">{post.formattedDate}</p>
     </div>
-    <h3><a href={`/blog/${post.id}/`}>{post.data.title}</a></h3>
-    <p>{post.data.description}</p>
+    <h3><a href={post.href}>{post.title}</a></h3>
+    <p>{post.description}</p>
   </div>
 </article>

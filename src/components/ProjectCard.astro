@@ -1,34 +1,32 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { formatReadingTime } from '../utils/readingTime';
+import type { ProjectCardData } from '../lib/content/projects';
 
 interface Props {
-  project: CollectionEntry<'projects'>;
+  project: ProjectCardData;
 }
 
 const { project } = Astro.props;
-const readingTime = formatReadingTime(project.body);
 ---
 
 <article class="project-card">
-  <a class="project-cover-link" href={`/projects/${project.id}/`} aria-label={`閱讀專案：${project.data.title}`}>
+  <a class="project-cover-link" href={project.href} aria-label={`閱讀專案：${project.title}`}>
     {
-      project.data.cover ? (
-        <img src={project.data.cover} alt={`${project.data.title} 專案封面`} loading="lazy" />
+      project.cover ? (
+        <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
       ) : (
         <span class="lab-cover" aria-hidden="true">
-          <strong>{project.data.title}</strong>
+          <strong>{project.title}</strong>
         </span>
       )
     }
   </a>
   <div class="project-card-body">
-    <h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3>
-    <p>{project.data.description}</p>
+    <h3><a href={project.href}>{project.title}</a></h3>
+    <p>{project.description}</p>
     <dl class="meta-list">
       <div>
         <dt>閱讀時間</dt>
-        <dd>{readingTime}</dd>
+        <dd>{project.readingTime}</dd>
       </div>
     </dl>
   </div>

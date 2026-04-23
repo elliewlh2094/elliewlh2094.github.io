@@ -1,29 +1,30 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
+import {
+  getPublishedPostPaths,
+  toBlogPageData
+} from '../../lib/content/blog';
 import ContentLayout from '../../layouts/ContentLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog')).filter((post) => !post.data.draft);
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post }
-  }));
+  return getPublishedPostPaths();
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const page = toBlogPageData(post);
 ---
 
 <ContentLayout
-  title={post.data.title}
-  description={post.data.description}
-  date={post.data.pubDate}
-  updatedDate={post.data.updatedDate}
+  title={page.title}
+  description={page.description}
+  dateLabel={page.formattedDate}
+  updatedDateLabel={page.formattedUpdatedDate}
   eyebrow="Blog Post"
 >
   {
-    post.data.cover && (
-      <img class="content-cover" src={post.data.cover} alt={`${post.data.title} 文章封面`} />
+    page.cover && (
+      <img class="content-cover" src={page.cover.src} alt={page.cover.alt} />
     )
   }
   <Content />

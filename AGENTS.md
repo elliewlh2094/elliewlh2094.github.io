@@ -13,7 +13,7 @@
 - 網站輸出模式為靜態輸出，設定在 `astro.config.mjs`。
 - 內容使用 Astro 內容集合（content collections）管理。
 - 部落格文章與專案資料使用 Markdown 檔案維護。
-- 全站樣式集中在 `src/styles/global.css`。
+- 全站樣式由 `src/styles/global.css` 作為入口，並拆分為基礎、版型、元件與內容頁樣式模組。
 - 推送到 `main` 分支後，GitHub Actions（GitHub Actions）會建置並發布到 GitHub Pages。
 
 ## 主要目錄
@@ -21,9 +21,11 @@
 - `src/content/blog`：部落格。
 - `src/content/projects`：專案資料。
 - `src/components`：共用介面元件。
+- `src/lib`：共用查詢、站點設定與顯示資料整理。
 - `src/layouts`：頁面版型。
 - `src/pages`：網站頁面與路由。
-- `src/styles/global.css`：全站樣式。
+- `src/styles/global.css`：全站樣式入口。
+- `src/styles/*.css`：分層樣式模組。
 - `public/images`：公開圖片資源。
 - `scripts/verify-site.mjs`：建置輸出與預覽頁面檢查腳本。
 
@@ -31,6 +33,9 @@
 
 - `docs/project-execution-plan.md`：專案執行計畫。需要確認第一版目前狀態、待辦項目、下一步順序、網站方向、第一版範圍、暫不納入項目與既有假設時，先查看這份文件。
 - `docs/technical-troubleshooting-guide.md`：技術疑難排解指南。遇到 `npm run build` 或 `npm run verify` 失敗、Astro 內容同步異常、重複識別碼、頁面輸出異常、內容集合欄位錯誤、草稿排除規則異常、封面圖片或格線占位顯示異常、工作樹已有大量未提交修改時，先查看這份文件。
+- `docs/specs/site-maintainability-prd.md`：第二階段維護優先重整的產品需求文件。
+- `docs/plans/site-maintainability-task-plan.md`：第二階段維護優先重整的實作計畫與任務拆解。
+- `docs/site-future-optimization-directions.md`：後續頁面內容、視覺與作品說服力方向。
 
 ## 開發指令
 
@@ -45,8 +50,8 @@
 - 新增文章時，在 `src/content/blog` 新增 `.md` 檔案。
 - 新增專案時，在 `src/content/projects` 新增 `.md` 檔案。
 - 前置資料（frontmatter）欄位必須符合 `src/content.config.ts` 的內容集合定義。
-- 文章欄位包含 `title`、`description`、`pubDate`、`updatedDate`、`category`、`tags`、`cover`、`featured`、`draft`。
-- 專案欄位包含 `title`、`description`、`cover`、`category`、`summary`、`tech`、`repo`、`demo`、`featured`、`order`、`draft`。
+- 文章欄位包含 `title`、`description`、`pubDate`、`updatedDate`、`category`、`tags`、`cover`、`coverAlt`、`featured`、`draft`。
+- 專案欄位包含 `title`、`description`、`cover`、`coverAlt`、`category`、`summary`、`tech`、`tags`、`repo`、`demo`、`featured`、`order`、`draft`。
 - `draft: true` 代表草稿，正式頁面與建置輸出應排除草稿內容。
 - 文章封面圖片優先放在 `public/images/blogs`，路徑以 `/images/blogs/...` 開頭。
 - 專案封面圖片優先放在 `public/images/projects`，路徑以 `/images/projects/...` 開頭。
@@ -56,7 +61,7 @@
 
 - 優先沿用既有 Astro 元件、版型與全站樣式。
 - 調整頁面結構時，先確認 `src/pages`、`src/layouts` 與 `src/components` 的既有分工。
-- 調整介面樣式時，先使用 `src/styles/global.css` 既有階層式樣式表（CSS）變數與樣式規則。
+- 調整介面樣式時，先沿用 `src/styles/global.css` 的入口與既有樣式模組分層。
 - 新增元件時，保持元件職責單一，並沿用目前 `.astro` 元件寫法。
 - 避免加入未使用的套件、過度抽象或與現有架構不一致的工具。
 - 修改文案時，保持網站定位一致：個人品牌、專案展示、文章整理與工作紀錄。

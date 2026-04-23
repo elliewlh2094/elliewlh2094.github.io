@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { toBlogPageData } from '../lib/content/blog';
+import { toProjectPageData } from '../lib/content/projects';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { formatReadingTime } from '../utils/readingTime';
 
 const posts = await getCollection('blog');
 const projects = await getCollection('projects');
@@ -15,7 +16,8 @@ if (!blogDemo || !projectDemo) {
 
 const { Content: BlogContent } = await render(blogDemo);
 const { Content: ProjectContent } = await render(projectDemo);
-const projectReadingTime = formatReadingTime(projectDemo.body);
+const blogPage = toBlogPageData(blogDemo);
+const projectPage = toProjectPageData(projectDemo);
 ---
 
 <BaseLayout
@@ -32,11 +34,11 @@ const projectReadingTime = formatReadingTime(projectDemo.body);
 
     <section class="prose" aria-labelledby="blog-demo-title">
       <p class="eyebrow">Blog 範例</p>
-      <h2 id="blog-demo-title">{blogDemo.data.title}</h2>
-      <p>{blogDemo.data.description}</p>
+      <h2 id="blog-demo-title">{blogPage.title}</h2>
+      <p>{blogPage.description}</p>
       {
-        blogDemo.data.cover ? (
-          <img class="content-cover" src={blogDemo.data.cover} alt={`${blogDemo.data.title} 文章封面`} />
+        blogPage.cover ? (
+          <img class="content-cover" src={blogPage.cover.src} alt={blogPage.cover.alt} />
         ) : (
           <div class="content-cover article-cover-placeholder" aria-hidden="true"></div>
         )
@@ -46,22 +48,22 @@ const projectReadingTime = formatReadingTime(projectDemo.body);
 
     <section class="prose longform-demo-section" aria-labelledby="project-demo-title">
       <p class="eyebrow">Project 範例</p>
-      <h2 id="project-demo-title">{projectDemo.data.title}</h2>
-      <p>{projectDemo.data.description}</p>
+      <h2 id="project-demo-title">{projectPage.title}</h2>
+      <p>{projectPage.description}</p>
       {
-        projectDemo.data.cover && (
-          <img class="content-cover" src={projectDemo.data.cover} alt={`${projectDemo.data.title} 專案封面`} />
+        projectPage.cover && (
+          <img class="content-cover" src={projectPage.cover.src} alt={projectPage.cover.alt} />
         )
       }
       <section class="project-summary" aria-label="專案摘要">
         <div>
           <span>閱讀時間</span>
-          <strong>{projectReadingTime}</strong>
+          <strong>{projectPage.readingTime}</strong>
         </div>
         <div>
           <span>重點摘要</span>
           <ul class="summary-copy">
-            {projectDemo.data.summary.map((summary) => <li>{summary}</li>)}
+            {projectPage.summary.map((summary) => <li>{summary}</li>)}
           </ul>
         </div>
       </section>

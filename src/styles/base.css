@@ -1,0 +1,101 @@
+:root {
+  color-scheme: light;
+  --bg: #fbfcfb;
+  --surface: #ffffff;
+  --surface-soft: #f2f7f5;
+  --ink: #1f2321;
+  --muted: #5f6965;
+  --line: #dce5e1;
+  --line-strong: #b8c8c1;
+  --accent: #007a70;
+  --accent-strong: #005f57;
+  --accent-soft: #e3f3ef;
+  --coral: #c85045;
+  --gold: #b2862b;
+  --shadow: 0 12px 28px rgba(31, 35, 33, 0.08);
+  font-family:
+    "Noto Sans TC",
+    "PingFang TC",
+    "Microsoft JhengHei",
+    system-ui,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--bg);
+  font-size: 16px;
+  line-height: 1.72;
+  letter-spacing: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-strong);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+h1 {
+  max-width: 15ch;
+  font-size: clamp(2.7rem, 7vw, 5.4rem);
+  letter-spacing: 0;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: 1.28rem;
+}
+
+main {
+  min-height: 70vh;
+}
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+@media (max-width: 520px) {
+  body {
+    font-size: 15px;
+  }
+}

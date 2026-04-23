@@ -1,21 +1,10 @@
 ---
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import { getPageMeta } from '../lib/site/metadata';
 import '../styles/global.css';
 
-interface Props {
-  title?: string;
-  description?: string;
-  noindex?: boolean;
-}
-
-const {
-  title = "Ellie's Robot Notebook",
-  description = '這是 Ellie 的機器人探索筆記，從研究到 Side project ，再到 AI 與生活心得。',
-  noindex = false
-} = Astro.props;
-const siteName = "Ellie's Robot Notebook";
-const pageTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+const pageMeta = getPageMeta(Astro.props);
 ---
 
 <!doctype html>
@@ -23,14 +12,14 @@ const pageTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta name="description" content={pageMeta.description} />
+    {pageMeta.noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:title" content={pageMeta.pageTitle} />
+    <meta property="og:description" content={pageMeta.description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
-    <meta property="og:site_name" content={siteName} />
-    <title>{pageTitle}</title>
+    <meta property="og:site_name" content={pageMeta.siteName} />
+    <title>{pageMeta.pageTitle}</title>
   </head>
   <body>
     <SiteHeader />

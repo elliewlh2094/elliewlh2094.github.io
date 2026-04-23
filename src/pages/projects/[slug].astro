@@ -1,46 +1,45 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
+import {
+  getPublishedProjectPaths,
+  toProjectPageData
+} from '../../lib/content/projects';
 import ContentLayout from '../../layouts/ContentLayout.astro';
-import { formatReadingTime } from '../../utils/readingTime';
 
 export async function getStaticPaths() {
-  const projects = (await getCollection('projects')).filter((project) => !project.data.draft);
-  return projects.map((project) => ({
-    params: { slug: project.id },
-    props: { project }
-  }));
+  return getPublishedProjectPaths();
 }
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const readingTime = formatReadingTime(project.body);
+const page = toProjectPageData(project);
 ---
 
 <ContentLayout
-  title={project.data.title}
-  description={project.data.description}
+  title={page.title}
+  description={page.description}
   eyebrow="Project Note"
 >
   {
-    project.data.cover && (
-      <img class="content-cover" src={project.data.cover} alt={`${project.data.title} 專案封面`} />
+    page.cover && (
+      <img class="content-cover" src={page.cover.src} alt={page.cover.alt} />
     )
   }
   <section class="project-summary" aria-label="專案摘要">
     <div>
       <span>閱讀時間</span>
-      <strong>{readingTime}</strong>
+      <strong>{page.readingTime}</strong>
     </div>
     <div>
       <span>重點摘要</span>
       <ul class="summary-copy">
-        {project.data.summary.map((summary) => <li>{summary}</li>)}
+        {page.summary.map((summary) => <li>{summary}</li>)}
       </ul>
     </div>
   </section>
   <div class="link-row">
-    {project.data.repo && <a class="button secondary" href={project.data.repo} target="_blank" rel="noreferrer">查看程式碼</a>}
-    {project.data.demo && <a class="button primary" href={project.data.demo} target="_blank" rel="noreferrer">查看展示</a>}
+    {page.repo && <a class="button secondary" href={page.repo} target="_blank" rel="noreferrer">查看程式碼</a>}
+    {page.demo && <a class="button primary" href={page.demo} target="_blank" rel="noreferrer">查看展示</a>}
   </div>
   <Content />
 </ContentLayout>

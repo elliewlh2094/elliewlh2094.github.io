@@ -1,17 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
 import ArticleCard from '../components/ArticleCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import { getFeaturedPosts, toArticleCardData } from '../lib/content/blog';
+import { getFeaturedProjects, toProjectCardData } from '../lib/content/projects';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const projects = (await getCollection('projects'))
-  .filter((project) => !project.data.draft)
-  .sort((a, b) => a.data.order - b.data.order);
-const featuredProjects = projects.filter((project) => project.data.featured).slice(0, 3);
-const posts = (await getCollection('blog'))
-  .filter((post) => !post.data.draft && post.data.featured)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const featuredProjectCards = (await getFeaturedProjects()).map(toProjectCardData);
+const featuredPostCards = (await getFeaturedPosts()).map(toArticleCardData);
 ---
 
 <BaseLayout title="Ellie's Robot Notebook">
@@ -38,7 +33,7 @@ const posts = (await getCollection('blog'))
       </p>
     </div>
     <div class="project-grid home-card-grid">
-      {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      {featuredProjectCards.map((project) => <ProjectCard project={project} />)}
     </div>
     <div class="section-actions">
       <a class="button secondary" href="/projects/">查看更多</a>
@@ -54,7 +49,7 @@ const posts = (await getCollection('blog'))
       </p>
     </div>
     <div class="article-mini-grid home-card-grid">
-      {posts.map((post) => <ArticleCard post={post} />)}
+      {featuredPostCards.map((post) => <ArticleCard post={post} />)}
     </div>
     <div class="section-actions">
       <a class="button secondary" href="/blog/">查看更多</a>

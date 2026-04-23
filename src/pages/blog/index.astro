@@ -1,11 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import ArticleCard from '../../components/ArticleCard.astro';
+import { getPublishedPosts, toArticleCardData } from '../../lib/content/blog';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const posts = (await getCollection('blog'))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = (await getPublishedPosts()).map(toArticleCardData);
 ---
 
 <BaseLayout title="文章" description="Ellie 的 AI 工具實作、機器人視覺、遊戲與手作筆記。">

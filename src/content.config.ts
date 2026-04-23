@@ -12,6 +12,7 @@ const blog = defineCollection({
     category: z.string(),
     tags: z.array(z.string()).default([]),
     cover: z.string().optional(),
+    coverAlt: z.string().optional(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false)
   })
@@ -23,9 +24,11 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     cover: z.string().optional(),
+    coverAlt: z.string().optional(),
     category: z.string(),
     summary: z.array(z.string()).min(1).max(3),
     tech: z.array(z.string()).default([]),
+    tags: z.array(z.string()).default([]),
     repo: z.string().url().optional(),
     demo: z.string().url().optional(),
     featured: z.boolean().default(false),
