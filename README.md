@@ -1,6 +1,6 @@
 # Ellie's Robot Notebook
 
-這是使用 Astro 建立的機器人探索筆記網站。網站內容以 Markdown 維護，適合逐步累積機器人研究、副專案、AI 工具實作、遊戲心得與手作紀錄。
+這是使用 Astro 建立的機器人探索筆記網站。網站內容以 Markdown 維護，適合逐步累積機器人研究、Side project、AI 工具實作、遊戲心得與手作紀錄。
 
 ## 本機開發
 

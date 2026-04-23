@@ -5,3 +5,4 @@ dist/
 .env.*
 npm-debug.log*
 chat_record.md
+.codex

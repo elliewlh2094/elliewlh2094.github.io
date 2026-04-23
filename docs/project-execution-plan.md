@@ -20,7 +20,7 @@
 - 已建立 GitHub Pages 部署流程，`.github/workflows/deploy.yml` 會在推送到 `main` 時執行 `npm ci` 與 `npm run build`。
 - 已有基本頁面中繼資料（metadata），包含頁面標題、描述、Open Graph（開放圖譜）標題、描述、網址與 `noindex` 支援。
 - 首頁、卡片、導覽列、頁尾與內容頁已有一致的第一版樣式。
-- 網站目前保留混合定位，題材包含機器人研究、副專案、AI 工具觀察與生活內容。
+- 網站目前保留混合定位，題材包含機器人研究、Side project、AI 工具觀察與生活內容。
 
 ### 目前公開內容
 
