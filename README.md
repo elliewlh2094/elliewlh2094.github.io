@@ -21,6 +21,20 @@ npm run build
 npm run preview
 ```
 
+驗證正式輸出：
+
+```bash
+npm run verify
+```
+
+`npm run verify` 會依目前 `draft: false` 的內容動態檢查公開頁面、草稿排除、封面資源與主要預覽頁面。
+
+## 維護文件
+
+- `AGENTS.md`：維護規則、內容模型、驗證原則與修改慣例。
+- `docs/project-execution-plan.md`：第一版目前狀態、優先順序與範圍控制。
+- `docs/technical-troubleshooting-guide.md`：建置、驗證、內容集合與版面異常的處理方式。
+
 ## 新增文章
 
 在 `src/content/blog` 新增 Markdown 檔案，例如：
@@ -36,9 +50,10 @@ src/content/blog/my-note.md
 title: "文章標題"
 description: "文章摘要，會顯示在列表與社群預覽中。"
 pubDate: 2026-04-16
+updatedDate: 2026-04-20
 category: "AI 工具實作"
 tags: ["標籤一", "標籤二"]
-cover: "/images/blog/my-note.png"
+cover: "/images/blogs/my-note.png"
 featured: true
 draft: false
 ---
@@ -48,7 +63,7 @@ draft: false
 
 設定 `draft: true` 時，文章不會出現在正式網站，也不會產生文章頁。
 
-文章的 `cover` 可省略。省略時，文章卡片與文章頁會顯示格線占位圖面；使用圖片時，建議放在 `public/images`，路徑以 `/images/...` 開頭。
+文章的 `cover` 可省略。省略時，文章卡片與文章頁會顯示格線占位圖面；使用圖片時，建議放在 `public/images/blogs`，路徑以 `/images/blogs/...` 開頭。
 
 ## 新增專案
 
@@ -92,11 +107,14 @@ draft: false
 - `order`：專案排序，數字越小越前面。
 - `draft`：設定為 `true` 時不發布。
 
+新增或調整正式內容後，先執行 `npm run build`；若涉及公開內容、草稿狀態、圖片輸出或路由，再執行 `npm run verify`。
+
 ## 放置圖片
 
 公開圖片放在 `public/images`。例如：
 
 ```text
+public/images/blogs/my-note.png
 public/images/profile.png
 public/images/projects/my-project.png
 ```

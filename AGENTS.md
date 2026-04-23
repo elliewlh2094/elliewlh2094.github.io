@@ -5,6 +5,7 @@
 這是使用 Astro（Astro）建立的靜態個人品牌網站，內容以 Markdown（Markdown）維護，並部署到 GitHub Pages（GitHub Pages）。
 
 網站包含首頁、關於頁、專案列表、文章列表、專案內容頁與文章內容頁。主要目標是用專案、文章與工作紀錄呈現個人專業能力。
+第一版公開範圍、目前優先順序與後續方向以 `docs/project-execution-plan.md` 為準。
 
 ## 技術棧
 
@@ -28,7 +29,7 @@
 
 ## 相關維護文件
 
-- `docs/project-execution-plan.md`：專案執行計畫。需要確認目前完成項目、待辦項目、下一步順序、網站方向、內容策略、專案文章規劃、第一版範圍、暫不納入項目與既有假設時，先查看這份文件。
+- `docs/project-execution-plan.md`：專案執行計畫。需要確認第一版目前狀態、待辦項目、下一步順序、網站方向、第一版範圍、暫不納入項目與既有假設時，先查看這份文件。
 - `docs/technical-troubleshooting-guide.md`：技術疑難排解指南。遇到 `npm run build` 或 `npm run verify` 失敗、Astro 內容同步異常、重複識別碼、頁面輸出異常、內容集合欄位錯誤、草稿排除規則異常、封面圖片或格線占位顯示異常、工作樹已有大量未提交修改時，先查看這份文件。
 
 ## 開發指令
@@ -37,17 +38,18 @@
 - `npm run dev`：啟動本機開發伺服器。
 - `npm run build`：建置靜態網站。
 - `npm run preview`：預覽建置結果。
-- `npm run verify`：檢查建置輸出與預覽頁面。
+- `npm run verify`：動態檢查目前 `draft: false` 的公開頁面、草稿排除、封面資源與主要預覽頁面。
 
 ## 內容維護規則
 
 - 新增文章時，在 `src/content/blog` 新增 `.md` 檔案。
 - 新增專案時，在 `src/content/projects` 新增 `.md` 檔案。
 - 前置資料（frontmatter）欄位必須符合 `src/content.config.ts` 的內容集合定義。
-- 文章欄位包含 `title`、`description`、`pubDate`、`tags`、`draft`。
-- 專案欄位包含 `title`、`description`、`cover`、`tech`、`repo`、`demo`、`featured`、`order`、`draft`。
+- 文章欄位包含 `title`、`description`、`pubDate`、`updatedDate`、`category`、`tags`、`cover`、`featured`、`draft`。
+- 專案欄位包含 `title`、`description`、`cover`、`category`、`summary`、`tech`、`repo`、`demo`、`featured`、`order`、`draft`。
 - `draft: true` 代表草稿，正式頁面與建置輸出應排除草稿內容。
-- 專案封面圖片放在 `public/images`，路徑以 `/images/...` 開頭。
+- 文章封面圖片優先放在 `public/images/blogs`，路徑以 `/images/blogs/...` 開頭。
+- 專案封面圖片優先放在 `public/images/projects`，路徑以 `/images/projects/...` 開頭。
 - 內容文字以繁體中文為主，保持清楚、具體、專業的技術文件語氣。
 
 ## 程式修改規則
